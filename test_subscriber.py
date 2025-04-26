@@ -6,7 +6,6 @@ broker_address = "localhost"
 broker_port = 1883
 
 def on_disconnect(client, userdata, flags, reason_code, properties):
-    
     print(f"Disconnected with result code {reason_code}")
     while True:
             try:

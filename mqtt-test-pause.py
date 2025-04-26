@@ -4,15 +4,12 @@ import time
 import datetime
 import math
 
-
 class Publisher:  
     def __init__(self):
         self.broker_address = "localhost"  
         self.broker_port = 1883
         self.topic = "test" 
-        self.broker_client = mqtt.Client(client_id="nabc25/CU_Hyperloop")
-        self.connected_to_broker = False
-        self.data_queue = []
+        self.broker_client = mqtt.Client(client_id="coolid") #every program's broker client id should be different!
         
     def connect_broker(self):    
         self.broker_client.connect_async(self.broker_address, self.broker_port)
@@ -34,9 +31,7 @@ class Publisher:
         while not self.broker_client.is_connected():
             print("Waiting for MQTT connection...")
             time.sleep(1)  # Sleep for a while and check again
-
         print("Connected to the broker!")
-        self.connected_to_broker = True
 
     def loadJson(self):
         with open('values.json', 'r') as f:
@@ -80,5 +75,5 @@ if __name__ == "__main__":
         else:
             print("NOT CONNECTED, pausing data publishing")
         
-        time.sleep(3)
+        time.sleep(1)
 
