@@ -15,6 +15,7 @@ import queue
 
 #broker address will be given by tbc at compition 
 #How to install (linux): snap install mosquitto
+#How to restart: sudo snap restart mosquitto
 #Enter this line in a separate terminal to subscribe to the topic:
 #mosquitto_sub -h localhost -t CU_Hyperloop
 
@@ -26,6 +27,19 @@ import queue
 
 
 class Publisher:
+
+    def on_disconnect(client, userdata, flags, reason_code, properties):
+    
+        print(f"Disconnected with result code {reason_code}")
+        while True:
+                try:
+                    client.reconnect()
+                    break
+                except Exception as e:
+                    print(f"Reconnect failed: {e}")
+                    time.sleep(5)  # Wait before retrying
+
+
     def __init__(self):
         #-----------------------------
         self.broker_address = "localhost"  
