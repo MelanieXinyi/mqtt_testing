@@ -3,9 +3,7 @@ import json
 import time
 import datetime
 import math
-
 import socket
-import subprocess
 
 class Publisher:  
     def __init__(self):
@@ -56,7 +54,7 @@ class Publisher:
         self.publish_msg(msg)
 
     def publish_msg(self, msg):
-        result = self.broker_client.publish(self.topic, msg)
+        result = self.broker_client.publish(self.topic, msg, qos=2)
         if result.rc == mqtt.MQTT_ERR_SUCCESS:
             print(f"Sent `{msg}` to topic `{self.topic}`")
         else:
@@ -92,7 +90,7 @@ if __name__ == "__main__":
             publisher.publish(counter)
             counter += 1
         else:
-            print("NOT CONNECTED, pausing data publishing")
+            print("NOT CONNECTED TO NETWORK, pausing data publishing")
         
         time.sleep(1)
 

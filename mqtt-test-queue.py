@@ -67,7 +67,7 @@ class Publisher:
             self.publish_msg(msg)
 
     def publish_msg(self, msg):
-        result = self.broker_client.publish(self.topic, msg)
+        result = self.broker_client.publish(self.topic, msg, qos=2)
         if result.rc == mqtt.MQTT_ERR_SUCCESS:
             print(f"Sent `{msg}` to topic `{self.topic}`")
         else:
